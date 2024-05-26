@@ -43,7 +43,6 @@ for epoch in range(num_epochs):
     # Print the loss at every 100 epochs
     if (epoch + 1) % 100 == 0:
         print(f"Epoch {epoch + 1}: Loss = {loss}")
-
 # Test the model on the input data
 # predictions = (a >= 0.5).astype(int)
 print("Predicted Output:")
