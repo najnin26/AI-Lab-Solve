@@ -1,0 +1,50 @@
+import numpy as np
+
+# Define the sigmoid activation function
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+# Define the derivative of the sigmoid activation function
+def sigmoid_derivative(x):
+    return sigmoid(x) * (1 - sigmoid(x))
+
+# Define the input data and labels for the NOR gate problem
+X = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
+y = np.array([[1], [0], [0], [0]])
+
+# Initialize the weights and biases with random values
+np.random.seed(42)
+W = np.random.randn(2, 1)
+b = np.random.randn(1)
+
+# Set the learning rate and number of epochs
+learning_rate = 0.8
+num_epochs = 500
+
+# Training loop
+for epoch in range(num_epochs):
+    # Forward pass
+    z = np.dot(X, W) + b
+    a = sigmoid(z)
+
+    # Compute the loss
+    loss = np.mean((y - a) ** 2)
+
+    error = (y - a)
+    # Backpropagation
+    delta = error * sigmoid_derivative(z)
+    dW = np.dot(X.T, delta)
+    db = np.sum(delta)
+
+    # Update the weights and biases
+    W -= learning_rate * dW
+    b -= learning_rate * db
+
+    # Print the loss at every 100 epochs
+    if (epoch + 1) % 100 == 0:
+        print(f"Epoch {epoch + 1}: Loss = {loss}")
+
+# Test the model on the input data
+# predictions = (a >= 0.5).astype(int)
+print("Predicted Output:")
+print(a)
